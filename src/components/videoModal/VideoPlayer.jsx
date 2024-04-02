@@ -88,7 +88,7 @@ function VideoPlayer({ info, id, showVideo }) {
     peer.on("signal", (data) => {
       console.log("this one executed");
       socket.emit("callUser", {
-        userToCall: id+1,
+        userToCall: id._id+1,
         signalData: data,
         from: me,
       });
