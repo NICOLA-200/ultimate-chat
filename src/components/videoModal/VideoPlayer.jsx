@@ -65,9 +65,10 @@ function VideoPlayer({ info, id, showVideo }) {
   const answerCall = () => {
     setCallAccepted(true);
 
-    const peer = new Peer({ initiator: false, trickle: true, stream });
+    const peer = new Peer({ initiator: false, trickle: false, stream });
 
     peer.on("signal", (data) => {
+      console.log("insise the answer")
       console.log(call);
       socket.emit("answerCall", { signal: data, to: call.from });
     });
@@ -83,7 +84,7 @@ function VideoPlayer({ info, id, showVideo }) {
 
   const callUser = () => {
     setCallingUser(true);
-    const peer = new Peer({ initiator: true, trickle: true, stream });
+    const peer = new Peer({ initiator: true, trickle: false, stream });
 
     peer.on("signal", (data) => {
       console.log("this one executed");
@@ -134,16 +135,16 @@ function VideoPlayer({ info, id, showVideo }) {
         <IoCloseSharp title="cancel video" />
       </button>
       <div className="z-50 flex gap-2   justify-center items-center absolute  right-[47%] bottom-12">
-        {call.isReceivingCall && (
+        {call.isReceivingCall && !callAccepted && (
           <button
             className="rounded-full z-50 w-8 h-8 bg-green-600 flex justify-center items-center "
             onClick={answerCall}
           >
-            <IoCall />
+            <IoCall  title="answer call"/>
           </button>
         )}
 
-        {!callingUser && (
+        {!callingUser || !call.isReceivingCall && (
           <button
             className="rounded-full z-50 w-8 h-8 bg-green-600 flex justify-center items-center "
             onClick={callUser}
@@ -159,7 +160,7 @@ function VideoPlayer({ info, id, showVideo }) {
               title="leave call"
               onClick={cancelVideo}
             >
-              <IoCall />
+              <IoCall title="leave call"/>
             </button>
           ))}
         <p className="">
