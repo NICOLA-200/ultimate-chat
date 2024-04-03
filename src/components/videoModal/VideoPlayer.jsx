@@ -135,23 +135,23 @@ function VideoPlayer({ info, id, showVideo }) {
         <IoCloseSharp title="cancel video" />
       </button>
       <div className="z-50 flex gap-2   justify-center items-center absolute  right-[47%] bottom-12">
- 
+       
           <button
             className="rounded-full z-50 w-8 h-8 bg-green-600 flex justify-center items-center "
             onClick={answerCall}
           >
             <IoCall  title="answer call"/>
           </button>
-       
+    
 
-        {!callingUser || !call.isReceivingCall && (
+       
           <button
             className="rounded-full z-50 w-8 h-8 bg-green-600 flex justify-center items-center "
             onClick={callUser}
           >
             <IoCall title="call" />
           </button>
-        )}
+     
 
         {callAccepted ||
           (callingUser && (
