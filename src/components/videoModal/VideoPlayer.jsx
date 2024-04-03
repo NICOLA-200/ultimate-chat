@@ -63,7 +63,7 @@ function VideoPlayer({ info, id, showVideo }) {
   }, []);
 
   const answerCall = () => {
-    setCallAccepted(true);
+    setCall((dat) => !dat.isReceivingCall)
 
     const peer = new Peer({ initiator: false, trickle: false, stream });
 
@@ -112,7 +112,7 @@ function VideoPlayer({ info, id, showVideo }) {
   const cancelVideo = () => {
     showVideo();
     setCallingUser(false);
-    setCallEnded(true);
+    setCallAccepted(true);
     socket.emit("ended");
     connectionRef.current.destroy();
     window.location.reload();
@@ -136,25 +136,16 @@ function VideoPlayer({ info, id, showVideo }) {
       </button>
       <div className="z-50 flex gap-2   justify-center items-center absolute  right-[47%] bottom-12">
        
-          <button
+        {call.isReceivingCall &&  <button
             className="rounded-full z-50 w-8 h-8 bg-green-600 flex justify-center items-center "
             onClick={answerCall}
           >
             <IoCall  title="answer call"/>
           </button>
-    
-
+       }
        
-          <button
-            className="rounded-full z-50 w-8 h-8 bg-green-600 flex justify-center items-center "
-            onClick={callUser}
-          >
-            <IoCall title="call" />
-          </button>
-     
-
-        {callAccepted ||
-          (callingUser && (
+       
+     {callingUser == true  || callAccepted ==true || call.isReceivingCall == true  ?
             <button
               className="rounded-full z-50 w-8 h-8 bg-red-600 flex justify-center items-center"
               title="leave call"
@@ -162,9 +153,16 @@ function VideoPlayer({ info, id, showVideo }) {
             >
               <IoCall title="leave call"/>
             </button>
-          ))}
+                    :
+                    <button
+            className="rounded-full z-50 w-8 h-8 bg-green-600 flex justify-center items-center "
+            onClick={callUser}
+          >
+            <IoCall title="call" />
+          </button>
+          }  
         <p className="">
-          {callingUser && "calling..."} {callAccepted && "call accepted"}
+          {callingUser && "calling..."} {callAccepted && "call accepted"}{call.isReceivingCall && "calling you..."}
         </p>
       </div>
       <video
