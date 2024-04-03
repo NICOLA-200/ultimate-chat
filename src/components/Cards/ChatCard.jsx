@@ -3,7 +3,7 @@ import man from "../../assets/images/man.png";
 import { CgProfile } from "react-icons/cg";
 import { BsEmojiSmile } from "react-icons/bs";
 import { AiOutlinePicture } from "react-icons/ai";
-import { GrMicrophone } from "react-icons/gr";
+
 import { io } from "socket.io-client";
 import { useRef, useState, useEffect } from "react";
 import moment from "moment";
@@ -18,7 +18,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 
 export default function ChatCard({ info, id, isTwo }) {
-  console.log(id);
+
   const socket = useRef();
 
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -39,7 +39,7 @@ export default function ChatCard({ info, id, isTwo }) {
     socket.current.emit("new-user-add", info._id);
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);
-      console.log(users);
+     
     });
   }, [info]);
 
@@ -47,7 +47,7 @@ export default function ChatCard({ info, id, isTwo }) {
     async function getallMessage() {
       setLoading(true);
       const { data } = await axios.get(`${HTTP}/message/${info._id}/${id._id}`);
-      console.log(data);
+    
       setLoading(false);
       setReceivedMessage(data);
     }
@@ -56,22 +56,12 @@ export default function ChatCard({ info, id, isTwo }) {
   }, []);
 
   useEffect(() => {
-    socket.current.on("recieve-message", (data) => {
-      console.log(typeof data.message);
-      console.log(data.seen);
-      console.log("let us see what  we want ");
+    socket.current.on("recieve-message", (data) => { 
 
       addMessage(data);
-      console.log(data.time);
-      console.log(receivedMessage);
-
-      console.log("let sadfgfdsadfg ds");
-
-      console.log(info._id);
 
       if (info._id == data.sendId) {
-        console.log("let sadfgfdsadfg ds");
-        console.log(seen);
+      
         storeMessage({
           message: data.message,
           receiverId: id._id,
@@ -88,9 +78,7 @@ export default function ChatCard({ info, id, isTwo }) {
   }, [receivedMessage]);
 
   const addMessage = (data) => {
-    console.log("executed");
     setReceivedMessage((prev) => [...prev, data]);
-    console.log(receivedMessage);
   };
 
   const sendMessage = () => {
@@ -101,7 +89,7 @@ export default function ChatCard({ info, id, isTwo }) {
       setAvatar("");
       setFile(null);
       setImageView(false);
-    } else if (message !== null) {
+    } else if (message != null || message !="") {
       socket.current.emit("send-message", {
         message,
         receiverId: id._id,
@@ -117,7 +105,6 @@ export default function ChatCard({ info, id, isTwo }) {
   };
 
   const storeMessage = async (message) => {
-    console.log("storage");
     axios
       .post(`${HTTP}/message`, message)
       .then((res) => {
@@ -131,12 +118,12 @@ export default function ChatCard({ info, id, isTwo }) {
   };
 
   const handleFileInputChange = (e) => {
-    console.log("the image view: " + imageView);
+   
     setImageView(true);
     const reader = new FileReader();
-    console.log(e.target.files[0]);
+
     setFile(e.target.files[0]);
-    console.log(file);
+
     setMessage("image selected");
 
     reader.readAsDataURL(e.target.files[0]);
@@ -150,7 +137,6 @@ export default function ChatCard({ info, id, isTwo }) {
 
   const sendImage = async () => {
     setLoading(true)
-    console.log("this id: " + info._id);
     const formData = new FormData();
     formData.append("avatar", file);
     formData.append("sendId", info._id);
@@ -158,7 +144,6 @@ export default function ChatCard({ info, id, isTwo }) {
     formData.append("message", "");
     formData.append("time", moment().format("dd h:mm a"));
     formData.append("seen", true);
-    console.log(formData);
     axios
       .post(`${HTTP}/message`, formData)
       .then((data) => {

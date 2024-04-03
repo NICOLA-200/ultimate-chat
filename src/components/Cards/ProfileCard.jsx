@@ -7,23 +7,12 @@ import axios from "axios";
 import { HTTP } from "../../server";
 
 export default function ProfileCard({ info }) {
-  const initialData = {
-    username: "",
-    password: "",
-    fullname: "",
-    slogan: "",
-    email: "",
-  };
-  console.log(info);
+
 
   const [file, setFile] = useState();
   const [avatar, setAvatar] = useState(null);
   const [data, setData] = useState(info);
 
-  // setData(info);
-
-  console.log("this is thed data in the  profile card: " + data);
-  console.log("slogna:" + info.friendsNumber);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -33,7 +22,6 @@ export default function ProfileCard({ info }) {
     const reader = new FileReader();
     console.log(e.target.files[0]);
     setFile(e.target.files[0]);
-    console.log(file);
 
     reader.readAsDataURL(e.target.files[0]);
 
@@ -45,10 +33,8 @@ export default function ProfileCard({ info }) {
   };
 
   const sendImage = async () => {
-    console.log("this id: " + info._id);
     const formData = new FormData();
     formData.append("avatar", file);
-    console.log(formData);
     axios
       .put(`${HTTP}/user/${info._id}`, formData)
       .then((dat) => {

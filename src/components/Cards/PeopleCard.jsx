@@ -21,7 +21,6 @@ export default function PeopleCard({ user, oneUser, isOne }) {
         }
       );
 
-      console.log(data);
       setFreinds(data.friends);
       setRequest(data.friendsRequest);
       setConfirm(data.friendConfirm);
@@ -31,8 +30,7 @@ export default function PeopleCard({ user, oneUser, isOne }) {
     fetchUser();
   }, [user, status]);
 
-  console.log(user);
-  console.log("one users");
+
 
   const id = user._id;
 

@@ -28,23 +28,16 @@ export default function Profile() {
       const info = await axios.get(`${ HTTP }/user/currentUser`, {
         withCredentials: true,
       });
-      console.log("this is the info: ");
-      console.log(info.data);
 
       setData(info.data);
-      console.log(data);
-
       const users = await axios.get(`${ HTTP }/user/`, {
         withCredentials: true,
       });
-      console.log(users.data);
+
       setUsers(users.data);
-      console.log("all users");
-      
       const notifications = await axios.get(`${ HTTP }/message/notification`, {
         withCredentials: true,
       });
-      console.log(notifications);
       setNotification(notifications.data);
       setNotCount(
         notifications.data.notNumber.notNumber
@@ -59,11 +52,8 @@ export default function Profile() {
     const users = await axios.get(`${ HTTP }/user/`, {
       withCredentials: true,
     });
-    console.log(users.data);
     setUsers(users.data);
     setLoading(false)
-    console.log("all users");
-    console.log(data);
   };
 
   const fetchFriends = async () => {
@@ -71,18 +61,14 @@ export default function Profile() {
     const users = await axios.get(`${ HTTP }/user/Friends`, {
       withCredentials: true,
     });
-    console.log(users.data);
     setUsers(users.data);
     setLoading(false)
-    console.log("all users");
   };
 
   const oneUser = async (id) => {
     
     const users = await axios.get(`${HTTP}/user/user/${id}`);
-    console.log(users.data);
     setData(users.data._doc);
-    console.log("all users");
     setOne(1);
   };
 

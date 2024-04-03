@@ -10,8 +10,6 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import { useState } from "react";
 
 export default function Profile({ notCount, showNotification }) {
-  console.log(notCount);
-  console.log("how many notification");
 
   const notificationShow = () => {
     showNotification();

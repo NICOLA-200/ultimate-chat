@@ -17,9 +17,7 @@ function VideoPlayer({ info, id, showVideo }) {
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-  console.log(info);
-  console.log(id);
-  console.log("this is it ");
+
   const socket = io("http://localhost:8800");
 
   useEffect(() => {
@@ -31,7 +29,7 @@ function VideoPlayer({ info, id, showVideo }) {
           if (myVideo.current) {
             myVideo.current.srcObject = currentStream;
           }
-          console.log("media query happened");
+        
         })
         .catch((error) => {
           console.error("Error accessing media devices:", error);
@@ -40,7 +38,7 @@ function VideoPlayer({ info, id, showVideo }) {
       socket.emit("new-user", info._id + 1);
 
       socket.on("me", (id) => {
-        console.log("me me me ");
+     
         console.log(id);
         setMe(id);
       });
@@ -64,8 +62,6 @@ function VideoPlayer({ info, id, showVideo }) {
     const peer = new Peer({ initiator: false, trickle: false, stream });
 
     peer.on("signal", (data) => {
-      console.log("insise the answer");
-      console.log(call);
       socket.emit("answerCall", { signal: data, to: call.from });
     });
 
@@ -83,7 +79,6 @@ function VideoPlayer({ info, id, showVideo }) {
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
     peer.on("signal", (data) => {
-      console.log("this one executed");
       socket.emit("callUser", {
         userToCall: id._id + 1,
         signalData: data,
@@ -94,8 +89,6 @@ function VideoPlayer({ info, id, showVideo }) {
     peer.on("stream", (currentStream) => {
       userVideo.current.srcObject = currentStream;
     });
-    console.log("see the sream");
-    console.log(userVideo);
     socket.on("callAccepted", (signal) => {
       setCallAccepted(true);
       setCallingUser(false);

@@ -2,10 +2,7 @@ import React from "react";
 import { useRef, useEffect } from "react";
 
 export default function Notification({ notification, showNot }) {
-  console.log("here is the notification");
-  console.log(notification);
 
-  console.log(notification?.confirm);
   const scroll = useRef();
 
   // Check if notification or notification.mess or notification.confirm is undefined
