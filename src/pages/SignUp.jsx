@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import Loading from "../components/loader/Loading.jsx";
 import { BsLayoutSidebar } from "react-icons/bs";
-import "../App.css"
+import "../App.css";
 
 export default function SignUp() {
   const initialState = {
@@ -57,7 +57,6 @@ export default function SignUp() {
                 name="username"
                 value={data.username}
                 required
-
                 className="bg-[#D9D9D9] text-neutral-600 focus:border-yellow-300 fo  p-2 text-lg border-[2px] rounded-md pl-2 "
               />
             </div>
@@ -129,7 +128,7 @@ export default function SignUp() {
             type="submit"
             value={"Sign up"}
             disabled={loading}
-            className="bg-yellowColor mt-5  text-black p-1 font-bold px-2 text-center rounded-md hover:bg-yellow-400  hover:border-yellow-300 "
+            className="bg-yellowColor mt-5  shadow-sm text-black p-1 font-bold px-2 text-center rounded-md hover:bg-yellow-400  hover:border-yellow-300 "
           />
         </form>
 

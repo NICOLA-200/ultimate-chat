@@ -81,15 +81,14 @@ export default function ChatCard({ info, id, isTwo }) {
     setReceivedMessage((prev) => [...prev, data]);
   };
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (message !== null && message == "image selected") {
-      setLoading(true);
       sendImage();
       setMessage("");
       setAvatar("");
       setFile(null);
       setImageView(false);
-    } else if (message != null || message !="") {
+    } else if (message) {
       socket.current.emit("send-message", {
         message,
         receiverId: id._id,
