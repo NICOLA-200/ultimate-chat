@@ -18,7 +18,8 @@ function VideoPlayer({ info, id, showVideo }) {
   const userVideo = useRef();
   const connectionRef = useRef();
 
-  const socket = io("http://localhost:8800");
+  // const socket = io("http://localhost:8800");
+   const socket = io("https://socket-iltmatechat.onrender.com");
 
   useEffect(() => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {

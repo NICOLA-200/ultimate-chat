@@ -35,7 +35,9 @@ export default function ChatCard({ info, id, isTwo }) {
   const scroll = useRef();
 
   useEffect(() => {
-    socket.current = io("http://localhost:8800");
+    // socket.current = io("http://localhost:8800");
+     socket.current = io("https://socket-iltmatechat.onrender.com");
+
     socket.current.emit("new-user-add", info._id);
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);
