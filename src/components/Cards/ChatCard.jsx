@@ -149,6 +149,7 @@ export default function ChatCard({ info, id, isTwo }) {
   };
 
   const sendImage = async () => {
+    setLoading(true)
     console.log("this id: " + info._id);
     const formData = new FormData();
     formData.append("avatar", file);
@@ -278,15 +279,7 @@ export default function ChatCard({ info, id, isTwo }) {
               <Loading />
             </div>
           )}
-          {/* <div className="flex seft-start w-[300px] mx-4 rounded-2xl p-3 text-start bg-neutral-200">
-          hy, this is me the only one and the best left footed play in the world
-          of skilles
-        </div>
 
-        <div className="flex  self-end w-[300px] mx-4  rounded-2xl p-3 text-start bg-yellow-200">
-          hy, this is me the only one and the best left footed play in the world
-          of skilles
-        </div> */}
         </div>
 
         <div className="absolute bottom-7  rounded-lg p-1 items-center gap-4 w-[90%]  mx-auto flex  bg-neutral-300 justify-between ">
