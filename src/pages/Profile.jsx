@@ -81,12 +81,16 @@ export default function Profile() {
     
     const users = await axios.get(`${HTTP}/user/user/${id}`);
     console.log(users.data);
-    setData(users.data);
+    setData(users.data._doc);
     console.log("all users");
     setOne(1);
   };
 
-  const isOne = (user) => {
+  const isOne = async (user) => {
+    const info = await axios.get(`${ HTTP }/user/currentUser`, {
+      withCredentials: true,
+    });
+    setData(info.data);
     setOne(2);
     setId(user);
   };
@@ -101,11 +105,11 @@ export default function Profile() {
 
   const showNotification = async () => {
     setShowNot((prev) => !prev);
-    
+    setShowNot(0)
     await axios.get(`${ HTTP }/message/notificationClear`, {
         withCredentials: true,
       });
-      setShowNot(0)
+   
   };
 
   return (

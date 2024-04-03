@@ -6,7 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { HTTP } from "../../server";
 
-export default function ProfileCard(props) {
+export default function ProfileCard({ info }) {
   const initialData = {
     username: "",
     password: "",
@@ -14,16 +14,16 @@ export default function ProfileCard(props) {
     slogan: "",
     email: "",
   };
-  console.log(props.info);
+  console.log(info);
 
   const [file, setFile] = useState();
   const [avatar, setAvatar] = useState(null);
-  const [data, setData] = useState(props.info);
+  const [data, setData] = useState(info);
 
-  // setData(props.info);
+  // setData(info);
 
   console.log("this is thed data in the  profile card: " + data);
-  console.log("slogna:" + props?.info.friendsNumber);
+  console.log("slogna:" + info.friendsNumber);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -45,12 +45,12 @@ export default function ProfileCard(props) {
   };
 
   const sendImage = async () => {
-    console.log("this id: " + props.info._id);
+    console.log("this id: " + info._id);
     const formData = new FormData();
     formData.append("avatar", file);
     console.log(formData);
     axios
-      .put(`${HTTP}/user/${props.info._id}`, formData)
+      .put(`${HTTP}/user/${info._id}`, formData)
       .then((dat) => {
         console.log("th is the data: " + JSON.stringify(dat.profilePicture));
       })
@@ -73,10 +73,8 @@ export default function ProfileCard(props) {
             ) : (
               <img
                 src={
-                  props.info &&
-                  props.info.profilePicture &&
-                  props.info.profilePicture.length > 0
-                    ? props.info.profilePicture
+                  info && info.profilePicture && info.profilePicture.length > 0
+                    ? info.profilePicture
                     : man // assuming 'man' is a variable or string containing the URL of the default image
                 }
                 alt="loading..."
@@ -119,7 +117,7 @@ export default function ProfileCard(props) {
             type="text"
             placeholder="your username"
             onChange={handleChange}
-            value={props.info.username}
+            value={info.username}
             className="bg-[#D9D9D9] p-1 rounded-md pl-2 w-[220px]"
             disabled
           />
@@ -132,7 +130,7 @@ export default function ProfileCard(props) {
             type="text"
             placeholder="your email"
             onChange={handleChange}
-            value={props.info.email}
+            value={info.email}
             name="email"
             className="bg-[#D9D9D9] p-1 rounded-md pl-2 w-[220px]"
             disabled
@@ -146,7 +144,7 @@ export default function ProfileCard(props) {
             type="text"
             placeholder="full name"
             onChange={handleChange}
-            value={props.info?.fullname}
+            value={info?.fullname}
             className="bg-[#D9D9D9] p-1 rounded-md pl-2 w-[220px]"
             disabled
           />
@@ -159,7 +157,7 @@ export default function ProfileCard(props) {
             type="text"
             placeholder="your slogan"
             onChange={handleChange}
-            value={props.info?.slogan}
+            value={info?.slogan}
             className="bg-[#D9D9D9] p-1 rounded-md pl-2 w-[220px]"
             disabled
           />

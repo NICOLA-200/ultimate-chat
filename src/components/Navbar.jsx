@@ -93,27 +93,27 @@ export default function Navbar() {
           <div className="absolute bg-white shadow-slate-600 shadow-md rounded-md p-4 top-8 z-300 space-y-6 w-[150px] right-[10%] flex flex-col">
             <span className="hover:text-yellowColor">
               {" "}
-              <Link className="pl-3 hover:text-yellow" to={"/"}>
+              <Link className="pl-3 hover:text-yellow-400" to={"/"}>
                 Home
               </Link>
             </span>
             {isAuthenticated && (
               <span className="hover:text-yellowColor">
                 {" "}
-                <Link className="pl-3 hover:text-white" to={"/Profile"}>
+                <Link className="pl-3 hover:text-yellow-400" to={"/Profile"}>
                   Profile
                 </Link>{" "}
               </span>
             )}
             <span className="hover:text-yellowColor">
               {" "}
-              <Link className="pl-3 hover:text-yellow" to={"/"}>
+              <Link className="pl-3 hover:text-yellow-400" to={"/"}>
                 Support
               </Link>
             </span>
             <span className="hover:text-yellowColor">
               {" "}
-              <Link className="pl-3 hover:text-yellow" to={"/"}>
+              <Link className="pl-3 hover:text-yellow-400" to={"/"}>
                 About As
               </Link>
             </span>

@@ -242,9 +242,7 @@ export default function ChatCard({ info, id, isTwo }) {
                       <p className="text-neutral-500 text-center  ">
                         {message.time}
                       </p>
-                      {console.log(
-                        "thsi: " + typeof receivedMessage[index].time
-                      )}
+                    
                     </>
                   );
                 } else {
@@ -269,7 +267,7 @@ export default function ChatCard({ info, id, isTwo }) {
                           )}
                         </div>
                       </div>
-                      <p className="text-neutral-500 ">{message.time}</p>
+                      <p  className="text-neutral-500 ">{message.time}</p>
                     </>
                   );
                 }
