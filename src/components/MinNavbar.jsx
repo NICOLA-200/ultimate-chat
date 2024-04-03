@@ -10,10 +10,10 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import { useState } from "react";
 
 export default function Profile({ notCount, showNotification }) {
-
+  const [bool, setBool] = useState(true);
   const notificationShow = () => {
     showNotification();
-    notCount = 0;
+    setBool(false);
   };
 
   return (
@@ -46,7 +46,7 @@ export default function Profile({ notCount, showNotification }) {
                 className="flex items-center justify-center hover:text-white relative"
                 onClick={notificationShow}
               >
-                {notCount > 0 && (
+                {notCount > 0 && bool && (
                   <span className="absolute w-[20px] rounded-full text-white h-[20px] left-3 text-center -top-1 bg-red-600 ">
                     {notCount}
                   </span>
