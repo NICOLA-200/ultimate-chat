@@ -15,6 +15,7 @@ export default function Profile({ notCount, showNotification }) {
 
   const notificationShow = () => {
     showNotification();
+    notCount = 0;
   };
 
   return (

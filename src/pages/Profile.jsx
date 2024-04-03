@@ -105,7 +105,7 @@ export default function Profile() {
 
   const showNotification = async () => {
     setShowNot((prev) => !prev);
-    setShowNot(0)
+    notCount(0)
     await axios.get(`${ HTTP }/message/notificationClear`, {
         withCredentials: true,
       });
