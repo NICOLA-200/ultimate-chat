@@ -6,8 +6,6 @@ import { IoCallSharp } from "react-icons/io5";
 import Peer from "simple-peer";
 import SimplePeer from "simple-peer";
 
-
-
 function VideoPlayer({ info, id, showVideo }) {
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
@@ -19,9 +17,9 @@ function VideoPlayer({ info, id, showVideo }) {
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-  console.log(info)
-  console.log(id)
-  console.log("this is it ")
+  console.log(info);
+  console.log(id);
+  console.log("this is it ");
   const socket = io("http://localhost:8800");
 
   useEffect(() => {
@@ -39,15 +37,13 @@ function VideoPlayer({ info, id, showVideo }) {
           console.error("Error accessing media devices:", error);
         });
 
-        socket.emit("new-user" , info._id+1)
+      socket.emit("new-user", info._id + 1);
 
       socket.on("me", (id) => {
         console.log("me me me ");
         console.log(id);
         setMe(id);
       });
-
-
 
       socket.on("callUser", ({ from, signal }) => {
         setCall({ isReceivingCall: true, from, signal });
@@ -63,12 +59,12 @@ function VideoPlayer({ info, id, showVideo }) {
   }, []);
 
   const answerCall = () => {
-    setCall((dat) => !dat.isReceivingCall)
+    setCall((dat) => !dat.isReceivingCall);
 
     const peer = new Peer({ initiator: false, trickle: false, stream });
 
     peer.on("signal", (data) => {
-      console.log("insise the answer")
+      console.log("insise the answer");
       console.log(call);
       socket.emit("answerCall", { signal: data, to: call.from });
     });
@@ -89,7 +85,7 @@ function VideoPlayer({ info, id, showVideo }) {
     peer.on("signal", (data) => {
       console.log("this one executed");
       socket.emit("callUser", {
-        userToCall: id._id+1,
+        userToCall: id._id + 1,
         signalData: data,
         from: me,
       });
@@ -125,7 +121,6 @@ function VideoPlayer({ info, id, showVideo }) {
         ref={userVideo}
         autoPlay
         playsInline
-        muted
       ></video>
 
       <button
@@ -135,34 +130,36 @@ function VideoPlayer({ info, id, showVideo }) {
         <IoCloseSharp title="cancel video" />
       </button>
       <div className="z-50 flex gap-2   justify-center items-center absolute  right-[47%] bottom-12">
-       
-        {call.isReceivingCall &&  <button
+        {call.isReceivingCall && (
+          <button
             className="rounded-full z-50 w-8 h-8 bg-green-600 flex justify-center items-center "
             onClick={answerCall}
           >
-            <IoCall  title="answer call"/>
+            <IoCall title="answer call" />
           </button>
-       }
-       
-       
-     {callingUser == true  || callAccepted ==true || call.isReceivingCall == true  ?
-            <button
-              className="rounded-full z-50 w-8 h-8 bg-red-600 flex justify-center items-center"
-              title="leave call"
-              onClick={cancelVideo}
-            >
-              <IoCall title="leave call"/>
-            </button>
-                    :
-                    <button
+        )}
+
+        {callingUser == true ||
+        callAccepted == true ||
+        call.isReceivingCall == true ? (
+          <button
+            className="rounded-full z-50 w-8 h-8 bg-red-600 flex justify-center items-center"
+            title="leave call"
+            onClick={cancelVideo}
+          >
+            <IoCall title="leave call" />
+          </button>
+        ) : (
+          <button
             className="rounded-full z-50 w-8 h-8 bg-green-600 flex justify-center items-center "
             onClick={callUser}
           >
             <IoCall title="call" />
           </button>
-          }  
+        )}
         <p className="">
-          {callingUser && "calling..."} {callAccepted && "call accepted"}{call.isReceivingCall && "calling you..."}
+          {callingUser && "calling..."} {callAccepted && "call accepted"}
+          {call.isReceivingCall && "calling you..."}
         </p>
       </div>
       <video
