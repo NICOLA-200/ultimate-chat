@@ -57,8 +57,6 @@ export default function SignUp() {
                 onChange={handleChange}
                 name="username"
                 value={data.username}
-                onFocus={() => setBorderColor("yellow")}
-                onBlur={() => setBorderColor("gray")}
                 required
                 className="bg-[#D9D9D9] text-neutral-600 focus:border-yellow-300 fo  p-2 text-lg border-[2px] rounded-md pl-2 "
               />
