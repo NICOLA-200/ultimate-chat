@@ -12,6 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState();
   const data = useLocation();
   const status1 = useSelector((state) => state.status1);
+  const loads = useSelector((state) => state.loading);
   const [loading, setLoading] = useState(false);
   console.log(data);
 
@@ -26,8 +27,8 @@ export default function Login() {
     <div className=" flex justify-center items-center w-full h-[100vh] py-20 sm:py-0 bg-zinc-100 relative">
       <div className="flex items-center w-[420px] sm:my-0  bg-white shadow-lg rounded-xl flex-col space-y-4 relative h-auto p-10 justify-center">
         <div className=" absolute h-[50%] w-full top-0 z-0 ">
-          <div className="bg-yellowColor h-[80%] w-full"></div>
-          <div className="bg-yellowColor h-0 w-0 border-b-[100px] border-l-[420px]  border-b-white  border-l-transparent"></div>
+          <div className="bg-yellow-300 h-[80%] w-full"></div>
+          <div className="bg-yellow-300 h-0 w-0 border-b-[100px] border-l-[420px]  border-b-white  border-l-transparent"></div>
         </div>
 
         <p className="font-bold text-xl relative">LOGIN</p>
@@ -66,11 +67,11 @@ export default function Login() {
         {status1 && <p className="text-red-500">{status1}</p>}
 
         <button
-          className="bg-yellowColor  shadow-sm text-black p-1 font-bold px-5 rounded-md hover:bg-yellow-400  hover:border-yellow-300 "
+          className="bg-yellowColor  text-black p-1 font-bold px-5 rounded-md hover:bg-yellow-400  hover:border-yellow-300 "
           onClick={submitHandler}
-          disabled={loading}
+          disabled={loads}
         >
-          {loading ? <Loading /> : "Login"}
+          {loads ? <Loading /> : "Login"}
         </button>
         <p>
           Create new account{"   "}

@@ -8,11 +8,21 @@ export  const getUserAuth  = (username , password) => async (dispatch) => {
    
   console.log("data gootten: " + username , password)
 
+  dispatch({
+    type: "loads",
+    payload: true
+   })
+
  try {
   const { data } = await axios.post(`${HTTP}/auth/login`,{username , password}, {
    withCredentials: true ,
  });
  console.log(data)
+
+ dispatch({
+  type: "loads",
+  payload: false
+ })
   
  if (data =="wrong password or username!") {
   console.log("somethe")
@@ -55,7 +65,10 @@ export const  currentUser = () => async (dispatch) => {
 
 export const  signUp = (info) => async (dispatch) => {
   console.log("something happened  in the sign up")
-
+  dispatch({
+    type: "loads",
+    payload: true
+   })
 
     const { data } = await axios.post(`${HTTP}/auth/register`,{...info},{
       withCredentials: true ,
@@ -66,6 +79,12 @@ export const  signUp = (info) => async (dispatch) => {
         type: "status",
         payload: data 
        })
+
+       dispatch({
+        type: "loads",
+        payload: false
+       })
+       
        
 
   }

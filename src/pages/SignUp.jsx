@@ -20,6 +20,7 @@ export default function SignUp() {
   };
 
   const statu = useSelector((state) => state.mesStatus);
+  const loads = useSelector((state) => state.loading);
   const navigate = useNavigate();
   const [data, setData] = useState(initialState);
   const [loading, setLoading] = useState(false);
@@ -56,6 +57,8 @@ export default function SignUp() {
                 onChange={handleChange}
                 name="username"
                 value={data.username}
+                onFocus={() => setBorderColor("yellow")}
+                onBlur={() => setBorderColor("gray")}
                 required
                 className="bg-[#D9D9D9] text-neutral-600 focus:border-yellow-300 fo  p-2 text-lg border-[2px] rounded-md pl-2 "
               />
@@ -127,9 +130,15 @@ export default function SignUp() {
           <input
             type="submit"
             value={"Sign up"}
-            disabled={loading}
-            className="bg-yellowColor mt-5  shadow-sm text-black p-1 font-bold px-2 text-center rounded-md hover:bg-yellow-400  hover:border-yellow-300 "
+            disabled={loads}
+          
+            className="bg-yellowColor mt-5  text-black p-1 font-bold px-2 text-center rounded-md hover:bg-yellow-400  hover:border-yellow-300 "
           />
+          {loads && (
+            <div className="text-center mx-auto ml-[47%] mt-2">
+              <Loading />
+            </div>
+          )}
         </form>
 
         <p>
