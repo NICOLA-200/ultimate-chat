@@ -11,7 +11,7 @@ export default function () {
           Chat with your Friends Without Interruption.
         </p>
         <p className="bro:text-left sm:w-[60%]">
-          This is a chat app where you can send anything you what such as image,
+          This is a chat app where you can send anything you want such as image,
           file and video .
         </p>
         <button className="bg-[#FFF766] p-2 px-3 rounded-md font-bold  border-neutral-950 border-[2px] hover:bg-yellow-300 hover:text-neutral-800">
