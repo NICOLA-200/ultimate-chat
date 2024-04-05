@@ -17,7 +17,7 @@ import { HTTP } from "../../server.js";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 
-export default function ChatCard({ info, id, isTwo }) {
+export default function ChatCard({ info, id, isTwo ,active }) {
 
   const socket = useRef();
 
@@ -41,7 +41,7 @@ export default function ChatCard({ info, id, isTwo }) {
     socket.current.emit("new-user-add", info._id);
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);
-     
+      active(users)
     });
   }, [info]);
 

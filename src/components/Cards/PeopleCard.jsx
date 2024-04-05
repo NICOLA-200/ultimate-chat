@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import man from "../../assets/images/man.png";
 import axios from "axios";
 import Loading from "../loader/Loading";
-import { HTTP } from "../../server";
 
 export default function PeopleCard({ user, oneUser, isOne }) {
   const [status, setStatus] = useState();
@@ -16,12 +15,13 @@ export default function PeopleCard({ user, oneUser, isOne }) {
     async function fetchUser() {
       setLoading(true);
       const { data } = await axios.get(
-        `${HTTP}/user/currentUser`,
+        `http://localhost:3001/user/currentUser`,
         {
           withCredentials: true,
         }
       );
 
+      console.log(data);
       setFreinds(data.friends);
       setRequest(data.friendsRequest);
       setConfirm(data.friendConfirm);
@@ -31,14 +31,15 @@ export default function PeopleCard({ user, oneUser, isOne }) {
     fetchUser();
   }, [user, status]);
 
-
+  console.log(user);
+  console.log("one users");
 
   const id = user._id;
 
   const AddFriend = async () => {
     setLoading(true);
     const { data } = await axios.post(
-      `${HTTP}/user/FriendRequest`,
+      "http://localhost:3001/user/FriendRequest",
       { id },
       { withCredentials: true }
     );
@@ -51,7 +52,7 @@ export default function PeopleCard({ user, oneUser, isOne }) {
   const ConfirmFriend = async () => {
     setLoading(true);
     const { data } = await axios.post(
-      `${HTTP}/user/FriendConfirm`,
+      "http://localhost:3001/user/FriendConfirm",
       { id },
       { withCredentials: true }
     );
@@ -64,7 +65,7 @@ export default function PeopleCard({ user, oneUser, isOne }) {
   const UnRequestFriend = async () => {
     setLoading(true);
     const { data } = await axios.post(
-      `${HTTP}/user/UnRequestFriend`,
+      "http://localhost:3001/user/UnRequestFriend",
       { id },
       { withCredentials: true }
     );
@@ -79,7 +80,12 @@ export default function PeopleCard({ user, oneUser, isOne }) {
   };
 
   const chatPage = () => {
+    setLoading(true);
+
     isOne(user);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
 
   return (

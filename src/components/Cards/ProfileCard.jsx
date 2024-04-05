@@ -3,16 +3,15 @@ import man from "../../assets/images/man.png";
 import { RxAvatar } from "react-icons/rx";
 import { FaCamera } from "react-icons/fa";
 import { useState } from "react";
+import Loading from "../loader/Loading";
 import axios from "axios";
 import { HTTP } from "../../server";
 
 export default function ProfileCard({ info }) {
-
-
   const [file, setFile] = useState();
   const [avatar, setAvatar] = useState(null);
   const [data, setData] = useState(info);
-
+  const [loading, setLoading] = useState();
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -33,15 +32,18 @@ export default function ProfileCard({ info }) {
   };
 
   const sendImage = async () => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("avatar", file);
     axios
       .put(`${HTTP}/user/${info._id}`, formData)
       .then((dat) => {
         console.log("th is the data: " + JSON.stringify(dat.profilePicture));
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
 
@@ -87,9 +89,15 @@ export default function ProfileCard({ info }) {
 
       <button
         onClick={sendImage}
-        className="bg-black rounded-md hover:bg-neutral-600 w-[100px] flex-auto   text-white p-1"
+        className="bg-black rounded-md hover:bg-neutral-600 w-[100px] flex-auto  text-center max-h-[70px]  text-white p-1"
       >
-        Upload
+        {loading ? (
+          <div className="ml-[36%]">
+            <Loading />
+          </div>
+        ) : (
+          "Upload"
+        )}
       </button>
 
       <form
