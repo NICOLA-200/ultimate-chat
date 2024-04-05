@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import man from "../../assets/images/man.png";
 import axios from "axios";
 import Loading from "../loader/Loading";
+import { HTTP } from "../../server";
 
 export default function PeopleCard({ user, oneUser, isOne }) {
   const [status, setStatus] = useState();
@@ -15,7 +16,7 @@ export default function PeopleCard({ user, oneUser, isOne }) {
     async function fetchUser() {
       setLoading(true);
       const { data } = await axios.get(
-        `http://localhost:3001/user/currentUser`,
+        `${HTTP}/user/currentUser`,
         {
           withCredentials: true,
         }
@@ -39,7 +40,7 @@ export default function PeopleCard({ user, oneUser, isOne }) {
   const AddFriend = async () => {
     setLoading(true);
     const { data } = await axios.post(
-      "http://localhost:3001/user/FriendRequest",
+      `${HTTP}/user/FriendRequest`,
       { id },
       { withCredentials: true }
     );
@@ -52,7 +53,7 @@ export default function PeopleCard({ user, oneUser, isOne }) {
   const ConfirmFriend = async () => {
     setLoading(true);
     const { data } = await axios.post(
-      "http://localhost:3001/user/FriendConfirm",
+      `${HTTP}/user/FriendConfirm`,
       { id },
       { withCredentials: true }
     );
@@ -65,7 +66,7 @@ export default function PeopleCard({ user, oneUser, isOne }) {
   const UnRequestFriend = async () => {
     setLoading(true);
     const { data } = await axios.post(
-      "http://localhost:3001/user/UnRequestFriend",
+      `${HTTP}/user/UnRequestFriend`,
       { id },
       { withCredentials: true }
     );
