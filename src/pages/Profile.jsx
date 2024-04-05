@@ -32,22 +32,18 @@ export default function Profile() {
         withCredentials: true,
       });
 
-
       setData(info.data);
-    
 
       const users = await axios.get(`${HTTP}/user/`, {
         withCredentials: true,
       });
-  
+
       setUsers(users.data);
-    
-   
 
       const notifications = await axios.get(`${HTTP}/message/notification`, {
         withCredentials: true,
       });
-   
+
       setNotification(notifications.data);
       setNotCount(notifications.data.notNumber.notNumber);
     }
@@ -56,26 +52,24 @@ export default function Profile() {
   }, []);
 
   const fetchUser = async () => {
-    setLoading(true);
+
     const users = await axios.get(`${HTTP}/user/`, {
       withCredentials: true,
     });
 
     setUsers(users.data);
 
-    setLoading(false);
 
   };
 
   const fetchFriends = async () => {
-    setLoading(true);
+  
     const users = await axios.get(`${HTTP}/user/Friends`, {
       withCredentials: true,
     });
 
     setUsers(users.data);
-    setLoading(false);
-
+ 
   };
 
   const oneUser = async (id) => {
@@ -112,27 +106,23 @@ export default function Profile() {
   };
 
   const active = (data) => {
-
     setActiveUsers(data);
   };
 
   const handleActiveChange = () => {
-
-
-   const newUsers = users.filter(user => {
- 
-   return activeUsers.some(activeUser => {
-      return user._id == activeUser.userId
-    })
-  
-   })
-
+    const newUsers = users.filter((user) => {
+      return activeUsers.some((activeUser) => {
+        return user._id == activeUser.userId;
+      });
+    });
+    if (newUsers.length == 0) {
+      setLoading(true);
+    }
 
     setUsers(newUsers);
   };
 
   const handleSearchChange = (e) => {
-
     const term = e.target.value;
     setSearchTerm(term);
 
@@ -206,6 +196,14 @@ export default function Profile() {
                   );
                 })}
           </div>
+          {loading && users.length < 1 && (
+            <p className="text-center">there is no active users</p>
+          )}
+          {users.length < 1 && (
+            <div className="flex gap-6 text-center justify-center mt-5  text-2xl">
+              <Loading /> <span>Loading data...</span>{" "}
+            </div>
+          )}
         </div>
 
         {one == 1 && <ProfileCard info={data} />}

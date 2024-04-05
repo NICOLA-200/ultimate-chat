@@ -65,7 +65,7 @@ export default function Navbar() {
         <span className="hover:text-yellowColor">
           {" "}
           <Link className="pl-3 hover:text-white line-clamp-1" to={"#"}>
-            About As
+            About Us
           </Link>{" "}
         </span>
         {isAuthenticated ? (
